@@ -1,7 +1,6 @@
 const express = require("express");
 const { google } = require("googleapis");
 const TelegramBot = require("node-telegram-bot-api");
-const cors = require("cors");
 
 const bot = new TelegramBot("6364175607:AAF3isgiTpZp_qtVkf7e_yR7O1rMizqM07c", {
   polling: true,
@@ -9,7 +8,6 @@ const bot = new TelegramBot("6364175607:AAF3isgiTpZp_qtVkf7e_yR7O1rMizqM07c", {
 
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: "https://olx-fargo.netlify.app" }));
 
 app.use(function (req, res, next) {
   res.setHeader(
