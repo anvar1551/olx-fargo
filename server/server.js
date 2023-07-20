@@ -25,25 +25,25 @@ app.use(function (req, res, next) {
 
 /////////////////////////////////////////////////////////////////////////////
 
-bot.onText(/\/start/, (msg) => {
-  const chatId = msg.chat.id;
+// bot.onText(/\/start/, (msg) => {
+//   const chatId = msg.chat.id;
 
-  // Текст сообщения
-  const text = "Привет! Это пример бота с кнопками.";
+//   // Текст сообщения
+//   const text = "Привет! Это пример бота с кнопками.";
 
-  // Кнопки
-  const options = {
-    reply_markup: {
-      inline_keyboard: [
-        [{ text: "Инструкция", url: "https://example.com/button1" }],
-        [{ text: "Публичная оферта", url: "https://fargo.uz/oferta" }],
-      ],
-    },
-  };
+//   // Кнопки
+//   const options = {
+//     reply_markup: {
+//       inline_keyboard: [
+//         [{ text: "Инструкция", url: "https://example.com/button1" }],
+//         [{ text: "Публичная оферта", url: "https://fargo.uz/oferta" }],
+//       ],
+//     },
+//   };
 
-  // Отправка сообщения с кнопками
-  bot.sendMessage(chatId, text, options);
-});
+//   // Отправка сообщения с кнопками
+//   bot.sendMessage(chatId, text, options);
+// });
 
 ////////////////////////////////////////////////////////////////////////////
 
