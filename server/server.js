@@ -73,8 +73,6 @@ app.post("/api/write-to-google-sheets", async (req, res) => {
       dateTime,
     } = req.body;
 
-    console.log(receivePoint);
-
     // Аутентификация с использованием ключей сервисного аккаунта
     const auth = new google.auth.GoogleAuth({
       credentials: {
@@ -102,13 +100,13 @@ app.post("/api/write-to-google-sheets", async (req, res) => {
             senderName,
             city,
             senderAdress,
-            senderPhone,
+            senderPhone.trim(),
             typeOfDelivery,
             recieverName,
             recieverCity,
             recieverAdress,
             receivePoint,
-            recieverPhone,
+            recieverPhone.trim(),
             weight,
             totalCost,
             dateTime,
@@ -118,7 +116,7 @@ app.post("/api/write-to-google-sheets", async (req, res) => {
     };
 
     const response = await sheets.spreadsheets.values.append(request);
-    console.log("Данные успешно записаны в Google Sheets", response.data);
+    console.log("Данные успешно записаны в Google Sheets");
 
     res
       .status(200)
