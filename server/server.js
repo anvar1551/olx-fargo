@@ -71,6 +71,7 @@ app.post("/api/write-to-google-sheets", async (req, res) => {
       weight,
       totalCost,
       dateTime,
+      olxRef,
     } = req.body;
 
     // Аутентификация с использованием ключей сервисного аккаунта
@@ -100,16 +101,17 @@ app.post("/api/write-to-google-sheets", async (req, res) => {
             senderName,
             city,
             senderAdress,
-            senderPhone.trim(),
+            senderPhone,
             typeOfDelivery,
             recieverName,
             recieverCity,
             recieverAdress,
             receivePoint,
-            recieverPhone.trim(),
+            recieverPhone,
             weight,
             totalCost,
             dateTime,
+            olxRef,
           ],
         ],
       },
