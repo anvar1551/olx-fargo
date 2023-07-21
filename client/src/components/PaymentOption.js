@@ -3,7 +3,6 @@ import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 const people = [
-  { id: 0, name: "" },
   { id: 1, name: "Отправитель" },
   { id: 2, name: "Получатель" },
 ];
@@ -48,6 +47,7 @@ export default function PaymentOption(props) {
               className="points w-full border-none focus:outline-none  py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 "
               displayValue={(person) => person.name}
               onChange={(event) => setQuery(event.target.value)}
+              placeholder="Выберите плательщика"
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex focus:outline-none items-center pr-2">
               <ChevronUpDownIcon

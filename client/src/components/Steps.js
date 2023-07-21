@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import Input from "./Input";
 import Checkbox from "./Checkbox";
-import truckicon from "../img/delivery.png";
+import fargoImg from "../img/fargo.jpg";
 import PaymentOption from "./PaymentOption";
+import apiClient from "../api/api";
 const { countPrice, countPricePoint } = require("./CountDeliveryPrice");
 const { generateUniqueTGID } = require("../utils/tgIDGenarator");
 
@@ -82,11 +83,11 @@ const StepsPanel = () => {
     };
 
     // Send data to the server
-    axios
+    apiClient
       .post("/api/write-to-google-sheets", updatedFormData)
       .then((response) => {
         // Handle success
-        setSuccess(true);
+        setSuccess(false);
         setCurrentStep(currentStep + 1);
         console.log(response.data);
       })
@@ -132,7 +133,7 @@ const StepsPanel = () => {
       };
 
       // Send data to the server
-      axios
+      apiClient
         .post("/api/write-to-google-sheets", updatedFormData)
         .then((response) => {
           // Handle success
@@ -153,11 +154,11 @@ const StepsPanel = () => {
   //////////////////////////////////////////////////////////////////
 
   return (
-    <div className="max-w-md mx-auto">
+    <div className="min-h-screen max-w-md mx-auto">
       <div className="shadow-lg bg-white rounded-lg px-8 py-6">
         <div className="flex justify-between items-center mb-6">
-          <img src={truckicon} alt="icon" className=" h-14 ms:h-10 ml-2" />
-          <h2 className="text-xl mr-36 font-bold">Fargo</h2>
+          <img src={fargoImg} alt="icon" className=" h-16 mt-3 ms:h-10 ml-2" />
+          {/* <h2 className="text-xl mr-36 font-bold">Fargo</h2> */}
           <div className="text-sm text-gray-500">Шаг {currentStep} из 3</div>
         </div>
         {currentStep === 1 && (
@@ -255,7 +256,9 @@ const StepsPanel = () => {
         )}
         {currentStep === 3 && (
           <div>
-            <h3 className="text-lg font-bold mb-4">Step 3: Final Step</h3>
+            <h3 className="text-lg font-bold mb-4">
+              {succes ? "Ваш заказ принят!" : "Будем рады увидеть вас снова!"}
+            </h3>
             {/* Step 3 content */}
           </div>
         )}

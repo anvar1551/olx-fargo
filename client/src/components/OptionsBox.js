@@ -73,6 +73,7 @@ export default function Example(props) {
               className="points w-full border-none focus:outline-none  py-2 pl-3 pr-10 text-sm leading-5 text-gray-900  focus:ring-0"
               displayValue={(person) => person.name}
               onChange={(event) => setQuery(event.target.value)}
+              placeholder="Выберите пункт выдачи"
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex focus:outline-none items-center pr-2">
               <ChevronUpDownIcon
