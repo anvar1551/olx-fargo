@@ -23,9 +23,10 @@ app.use(function (req, res, next) {
 });
 
 /////////////////////////////////////////////////////////////////////////////
-
+let chatIds;
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
+  chatIds = chatId;
 
   // Текст сообщения
   const text = "Привет! Это пример бота с кнопками.";
@@ -119,6 +120,11 @@ app.post("/api/write-to-google-sheets", async (req, res) => {
 
     const response = await sheets.spreadsheets.values.append(request);
     console.log("Данные успешно записаны в Google Sheets");
+
+    // Sending a success message to Telegram bot
+    const chatId = chatIds; // Replace this with your actual Telegram chat ID
+    const successMessage = "Данные успешно записаны в Google Sheets";
+    bot.sendMessage(chatId, successMessage);
 
     res
       .status(200)
