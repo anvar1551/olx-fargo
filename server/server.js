@@ -20,8 +20,9 @@ app.use(function (req, res, next) {
 });
 
 /////////////////////////////////////////////////////////////////////////////
-
+let botChatId = null;
 bot.onText(/\/start/, (msg) => {
+  botChatId = msg.chat.id;
   const chatId = msg.chat.id;
 
   // Текст сообщения
@@ -116,6 +117,9 @@ app.post("/api/write-to-google-sheets", async (req, res) => {
 
     const response = await sheets.spreadsheets.values.append(request);
     console.log("Данные успешно записаны в Google Sheets");
+
+    const successMessage = "Данные успешно записаны в Google Sheets";
+    bot.sendMessage(botChatId, successMessage);
     res
       .status(200)
       .json({ message: "Данные успешно записаны в Google Sheets" });
