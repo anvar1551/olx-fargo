@@ -20,11 +20,12 @@ app.use(function (req, res, next) {
 });
 
 /////////////////////////////////////////////////////////////////////////////
-let chatIds;
+let chatIds = [];
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
-  chatIds = chatId;
-
+  if (!chatIds.includes(chatId)) {
+    chatIds.push(chatId); // Store the chat ID if not already present
+  }
   // Текст сообщения
   const text = "Привет! Это пример бота с кнопками.";
 
@@ -119,13 +120,13 @@ app.post("/api/write-to-google-sheets", async (req, res) => {
     console.log("Данные успешно записаны в Google Sheets");
 
     // Sending a success message to Telegram bot
-    const chatId = chatIds; // Replace this with your actual Telegram chat ID
     const successMessage =
       status === "Подтверждено"
         ? "Ваш заказ получен, трек номер заказа будет отправлен Вам через смс. Телефон поддержки: +998 71 200 00 37"
         : "Будем рады увидеть Вас снова! Если у Вас остались вопросы позвоните по номеру: +998 71 200 00 37";
-    bot.sendMessage(chatId, successMessage);
-
+    chatIds.forEach((chatId) => {
+      bot.sendMessage(chatId, successMessage);
+    });
     res
       .status(200)
       .json({ message: "Данные успешно записаны в Google Sheets" });
