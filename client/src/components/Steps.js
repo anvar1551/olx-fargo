@@ -12,6 +12,7 @@ const StepsPanel = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [notFilled, setNotFilled] = useState(false);
   const [formData, setFormData] = useState({
+    olxRef: "",
     senderName: "",
     city: "",
     senderAdress: "",
@@ -27,17 +28,32 @@ const StepsPanel = () => {
     additionalInfo: "",
     totalCost: 0,
   });
+
   const [succes, setSuccess] = useState("");
 
   //////////////////////////////////////////////////////////////////
 
+  // Function to trim phone numbers from empty spaces
+  const trimPhone = (value) => {
+    // Remove all non-digit characters from the value
+    return value.replace(/\D/g, "");
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    const trimmedValue =
+      name === "senderPhone" || name === "recieverPhone"
+        ? trimPhone(value)
+        : value;
+
+    console.log(trimmedValue);
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: trimmedValue,
     }));
   };
+
   //////////////////////////////////////////////////////////////////
   // Handling Next and Previous button
   const handleNextStep = () => {
@@ -59,6 +75,7 @@ const StepsPanel = () => {
     formData.city &&
       formData.typeOfDelivery &&
       formData.weight !== 0 &&
+      formData.weight > 0 &&
       setCurrentStep(currentStep + 1);
 
     // Close Telegram web app when "Finish" button is clicked
@@ -172,6 +189,19 @@ const StepsPanel = () => {
             <Input
               handleChange={handleChange}
               type="text"
+              senderName="olxRef"
+              value={formData.olxRef}
+              inputName="Ссылка на отправлямый товар"
+              placeholder="Ссылка на товар"
+              className={
+                notFilled && formData.olxRef === ""
+                  ? "ring-red-500"
+                  : "ring-gray-500"
+              }
+            />
+            <Input
+              handleChange={handleChange}
+              type="text"
               senderName="senderName"
               value={formData.senderName}
               inputName="Имя отправителя"
@@ -241,7 +271,9 @@ const StepsPanel = () => {
               senderName="weight"
               inputName="Введите вес (кг)"
               className={`${
-                formData.weight === 0 ? "ring-red-500" : "ring-gray-500"
+                formData.weight < 0 || formData.weight === 0
+                  ? "ring-red-500"
+                  : "ring-gray-500"
               }`}
             />
           </div>
