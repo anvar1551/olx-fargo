@@ -20,13 +20,13 @@ app.use(function (req, res, next) {
 });
 
 /////////////////////////////////////////////////////////////////////////////
-let botChatId = null;
+
 bot.onText(/\/start/, (msg) => {
-  botChatId = msg.chat.id;
   const chatId = msg.chat.id;
 
   // Текст сообщения
-  const text = "Привет! Это пример бота с кнопками.";
+  const text =
+    "Добро пожаловать в наш телеграм бот! Здесь вы можете заказывать доставку вашей посылки. Хотим уведомить нажимая кнопку заказывать вы принимаете публичную оферту! Call-Center: +998 71 200 00 37";
 
   // Кнопки
   const options = {
@@ -117,9 +117,6 @@ app.post("/api/write-to-google-sheets", async (req, res) => {
 
     const response = await sheets.spreadsheets.values.append(request);
     console.log("Данные успешно записаны в Google Sheets");
-
-    const successMessage = "Данные успешно записаны в Google Sheets";
-    bot.sendMessage(botChatId, successMessage);
     res
       .status(200)
       .json({ message: "Данные успешно записаны в Google Sheets" });
