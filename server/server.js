@@ -120,7 +120,10 @@ app.post("/api/write-to-google-sheets", async (req, res) => {
 
     // Sending a success message to Telegram bot
     const chatId = chatIds; // Replace this with your actual Telegram chat ID
-    const successMessage = "Данные успешно записаны в Google Sheets";
+    const successMessage =
+      status === "Подтверждено"
+        ? "Ваш заказ получен, трек номер заказа будет отправлен Вам через смс. Телефон поддержки: +998 71 200 00 37"
+        : "Будем рады увидеть Вас снова! Если у Вас остались вопросы позвоните по номеру: +998 71 200 00 37";
     bot.sendMessage(chatId, successMessage);
 
     res
