@@ -23,7 +23,6 @@ app.use(function (req, res, next) {
 
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
-  msg.chat.chatId = chatId; // Store the chatId as a property on the msg object
 
   // Текст сообщения
   const text = "Привет! Это пример бота с кнопками.";
@@ -117,16 +116,6 @@ app.post("/api/write-to-google-sheets", async (req, res) => {
 
     const response = await sheets.spreadsheets.values.append(request);
     console.log("Данные успешно записаны в Google Sheets");
-
-    const chatId = req.msg?.chat?.chatId; // Access the stored chatId from the msg object
-    if (chatId) {
-      const successMessage =
-        status === "Подтверждено"
-          ? "Ваш заказ получен, трек номер заказа будет отправлен Вам через смс. Телефон поддержки: +998 71 200 00 37"
-          : "Будем рады увидеть Вас снова! Если у Вас остались вопросы позвоните по номеру: +998 71 200 00 37";
-      bot.sendMessage(chatId, successMessage);
-    }
-
     res
       .status(200)
       .json({ message: "Данные успешно записаны в Google Sheets" });
