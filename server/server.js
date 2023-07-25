@@ -38,8 +38,12 @@ bot.onText(/\/start/, (msg) => {
     },
   };
 
-  // Отправка сообщения с кнопками
-  bot.sendMessage(chatId, text, options);
+  // Отправка сообщения с изображением и кнопками
+  bot.sendPhoto(
+    chatId,
+    "./img/fargo.jpg", // Replace this with the URL or file path of your image
+    { caption: text, reply_markup: options.reply_markup }
+  );
 });
 
 ////////////////////////////////////////////////////////////////////////////
